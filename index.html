@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Carreras Running</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & BASE ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:        #F5F3EE;
+    --surface:   #FFFFFF;
+    --border:    #E0DDD6;
+    --text:      #1A1917;
+    --muted:     #7A776F;
+    --accent:    #D45B2A;
+    --accent-bg: #FAF0EB;
+    --green:     #2A7A4B;
+    --green-bg:  #EBF5F0;
+    --blue:      #1A5FAD;
+    --blue-bg:   #EBF2FA;
+    --red:       #C0392B;
+    --red-bg:    #FDECEA;
+    --red-border:#E57368;
+    --radius:    10px;
+    --radius-lg: 14px;
+    --font:      'DM Sans', sans-serif;
+    --mono:      'DM Mono', monospace;
+    --shadow:    0 1px 3px rgba(0,0,0,0.08);
+  }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ── */
+  .app { max-width: 480px; margin: 0 auto; padding-bottom: 48px; }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ── HEADER ── */
+  .header {
+    padding: 24px 20px 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .header-left h1 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .header-left p { font-size: 13px; color: var(--muted); margin-top: 3px; }
+  .btn-new {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: opacity .15s;
+  }
+  .btn-new:active { opacity: .85; transform: scale(.98); }
+
+  /* ── RACE LIST ── */
+  .race-list { padding: 4px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .race-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .race-card:hover { border-color: #C0BDB6; box-shadow: var(--shadow); }
+  .race-card:active { transform: scale(.99); }
+  .rc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .rc-name { font-size: 16px; font-weight: 600; line-height: 1.3; }
+  .badge-km {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: var(--green-bg);
+    color: var(--green);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .rc-meta { display: flex; flex-direction: column; gap: 4px; }
+  .meta-row { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+  .meta-row svg { flex-shrink: 0; opacity: .6; }
+  .rc-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .count-label { font-size: 13px; color: var(--muted); }
+  .count-label b { color: var(--text); }
+  .days-badge {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .days-badge.future { background: var(--blue-bg); color: var(--blue); }
+  .days-badge.today  { background: #FEF3E2; color: #A05A00; }
+  .days-badge.past   { background: var(--red-bg); color: var(--red); }
+
+  /* ── DETAIL ── */
+  .back-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 14px;
+    background: var(--surface);
+  }
+  .back-bar:hover { color: var(--text); }
+  .detail-hero {
+    background: var(--surface);
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .detail-title { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 14px; line-height: 1.25; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 5px 11px;
+    border-radius: 20px;
+  }
+  .chip svg { opacity: .55; }
+  .link-oficial {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .link-oficial:hover { text-decoration: underline; }
+
+  /* ── AVISO DORSAL ── */
+  .aviso {
+    margin: 16px 16px 0;
+    padding: 13px 15px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--red-border);
+    background: var(--red-bg);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .aviso-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+  .aviso-text { font-size: 13px; color: #7A1F1A; line-height: 1.55; font-weight: 500; }
+
+  /* ── INSCRIPCIÓN ── */
+  .inscripcion-box {
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    margin-top: 16px;
+  }
+  .inscripcion-box h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+  .input-row { display: flex; gap: 8px; }
+  .input-row input {
+    flex: 1;
+    padding: 10px 13px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--font);
+    font-size: 15px;
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    transition: border-color .15s;
+  }
+  .input-row input:focus { border-color: #A0A09A; }
+  .btn-apuntar {
+    padding: 10px 16px;
+    background: var(--text);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity .15s;
+  }
+  .btn-apuntar:active { opacity: .8; }
+  .btn-apuntar.ya {
+    background: transparent;
+    color: var(--green);
+    border: 1px solid #7EC8A0;
+  }
+
+  /* ── PARTICIPANTES ── */
+  .participantes-box { padding: 18px 16px; background: var(--surface); margin-top: 10px; }
+  .participantes-box h3 { font-size: 15px; font-weight: 600; margin-bottom: 14px; }
+  .p-list { display: flex; flex-direction: column; gap: 10px; }
+  .p-row { display: flex; align-items: center; gap: 12px; }
+  .avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--accent-bg);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
+    flex-shrink: 0;
+    border: 1px solid #F0C9B8;
+  }
+  .p-name { font-size: 15px; }
+  .p-num { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+  .p-empty { font-size: 14px; color: var(--muted); text-align: center; padding: 16px 0; }
+
+  /* ── FORM ── */
+  .form-wrap { padding: 20px 16px; }
+  .form-wrap h2 { font-size: 20px; font-weight: 600; margin-bottom: 20px; letter-spacing: -0.2px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
+  .form-group input {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--font);
+    font-size: 15px;
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    transition: border-color .15s;
+  }
+  .form-group input:focus { border-color: #A0A09A; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .btn-submit {
+    width: 100%;
+    padding: 13px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: opacity .15s;
+    letter-spacing: .2px;
+  }
+  .btn-submit:active { opacity: .85; }
+
+  /* ── EMPTY / LOADING ── */
+  .empty-state { text-align: center; padding: 64px 24px; color: var(--muted); }
+  .empty-state .big { font-size: 48px; margin-bottom: 14px; }
+  .empty-state p { font-size: 15px; line-height: 1.6; }
+  .loading { text-align: center; padding: 56px; color: var(--muted); font-size: 14px; }
+
+  /* ── FIREBASE SETUP BANNER ── */
+  .setup-banner {
+    margin: 16px;
+    padding: 16px;
+    background: #FFFBEB;
+    border: 1.5px dashed #F0C040;
+    border-radius: var(--radius);
+    font-size: 13px;
+    line-height: 1.6;
+    color: #5A4500;
+  }
+  .setup-banner b { display: block; font-size: 14px; margin-bottom: 4px; }
+  .setup-banner code {
+    display: inline-block;
+    background: #FEF3C7;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: var(--text); color: #fff;
+    padding: 10px 20px; border-radius: 20px;
+    font-size: 14px; white-space: nowrap;
+    opacity: 0; pointer-events: none; z-index: 999;
+    transition: opacity .25s;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ═══ LISTA ═══ -->
+  <div id="view-list" class="view active">
+    <div class="header">
+      <div class="header-left">
+        <h1>🏃 Carreras</h1>
+        <p>Apúntate a las próximas carreras</p>
+      </div>
+      <button class="btn-new" onclick="showForm()">+ Nueva</button>
+    </div>
+    <div id="race-list" class="race-list">
+      <div class="loading">Conectando con Firebase…</div>
+    </div>
+  </div>
+
+  <!-- ═══ DETALLE ═══ -->
+  <div id="view-detail" class="view">
+    <div class="back-bar" onclick="showList()">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4L6 10l6 6"/></svg>
+      Todas las carreras
+    </div>
+    <div class="detail-hero">
+      <div class="detail-title" id="d-title"></div>
+      <div class="chips">
+        <div class="chip"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6c0 3.5 4.5 8.5 4.5 8.5s4.5-5 4.5-8.5c0-2.5-2-4.5-4.5-4.5z"/><circle cx="8" cy="6" r="1.5"/></svg><span id="d-lugar"></span></div>
+        <div class="chip"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M5 1.5v3M11 1.5v3M2 7h12"/></svg><span id="d-fecha"></span></div>
+        <div class="badge-km" id="d-km" style="align-self:center"></div>
+      </div>
+      <a id="d-link" class="link-oficial" target="_blank" style="display:none">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 3.5H3.5A1.5 1.5 0 0 0 2 5v7.5A1.5 1.5 0 0 0 3.5 14H11a1.5 1.5 0 0 0 1.5-1.5V9.5M9.5 2H14v4.5M14 2L7.5 8.5"/></svg>
+        Inscripción oficial
+      </a>
+    </div>
+
+    <div class="aviso" id="aviso">
+      <div class="aviso-icon">⚠️</div>
+      <div class="aviso-text">Apúntate solo si ya has comprado el dorsal. Este listado es únicamente para saber quién va del grupo.</div>
+    </div>
+
+    <div class="inscripcion-box" id="inscripcion-box">
+      <h3>¿Vas a correr?</h3>
+      <div class="input-row">
+        <input type="text" id="nombre-input" placeholder="Tu nombre y apellido">
+        <button class="btn-apuntar" id="btn-apuntar" onclick="apuntarse()">Apuntarme</button>
+      </div>
+    </div>
+
+    <div class="participantes-box">
+      <h3 id="p-title">Participantes</h3>
+      <div id="p-list" class="p-list"></div>
+    </div>
+  </div>
+
+  <!-- ═══ FORMULARIO ═══ -->
+  <div id="view-form" class="view">
+    <div class="back-bar" onclick="showList()">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4L6 10l6 6"/></svg>
+      Volver
+    </div>
+    <div class="form-wrap">
+      <h2>Nueva carrera</h2>
+      <div class="form-group"><label>Nombre de la carrera *</label><input type="text" id="f-titulo" placeholder="Ej: 10K Ciutat de Valencia"></div>
+      <div class="form-group"><label>Localización *</label><input type="text" id="f-lugar" placeholder="Ej: Valencia, España"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Fecha *</label><input type="date" id="f-fecha"></div>
+        <div class="form-group"><label>Kilómetros *</label><input type="number" id="f-km" placeholder="10" min="1"></div>
+      </div>
+      <div class="form-group"><label>Enlace de inscripción</label><input type="url" id="f-link" placeholder="https://..."></div>
+      <button class="btn-submit" onclick="addRace()">Publicar carrera</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════════
+     FIREBASE — PEGA AQUÍ TUS CREDENCIALES
+     ══════════════════════════════════════════ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+  import { getFirestore, collection, doc, addDoc, updateDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey:            "AIzaSyAP0ABevW1b7R6vWS_pDE_1doE9a8T7BwI",
+    authDomain:        "listado-carreras.firebaseapp.com",
+    projectId:         "listado-carreras",
+    storageBucket:     "listado-carreras.firebasestorage.app",
+    messagingSenderId: "667969938494",
+    appId:             "1:667969938494:web:2aa05ae291c9fbe54e5d6f",
+    measurementId:     "G-Q3LECZTZ4R"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+  const carrerasRef = collection(db, "carreras");
+
+  let currentId = null;
+  let races = [];
+
+  // ── utilidades ──
+  function fmt(str) {
+    const [y,m,d] = str.split('-');
+    const ms = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+    return `${parseInt(d)} ${ms[parseInt(m)-1]} ${y}`;
+  }
+  function daysLabel(str) {
+    const d = new Date(str); d.setHours(23,59,59);
+    const diff = Math.ceil((d - Date.now()) / 86400000);
+    if (diff < 0) return { text:'ya celebrada', cls:'past' };
+    if (diff === 0) return { text:'¡hoy!', cls:'today' };
+    if (diff === 1) return { text:'mañana', cls:'future' };
+    return { text:`en ${diff} días`, cls:'future' };
+  }
+  function initials(name) {
+    return name.trim().split(' ').slice(0,2).map(w=>w[0]||'').join('').toUpperCase() || '?';
+  }
+  function isPastRace(fecha) {
+    return new Date(fecha) < new Date(new Date().toDateString());
+  }
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 2500);
+  }
+  function showView(id) {
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // ── listener en tiempo real ──
+  function startListener() {
+    const q = query(carrerasRef, orderBy("fecha"));
+    onSnapshot(q, snap => {
+      races = [];
+      snap.forEach(d => races.push({ id: d.id, ...d.data() }));
+      // limpiar carreras viejas (2 días tras la carrera)
+      const now = Date.now();
+      races.forEach(r => {
+        const diff = now - new Date(r.fecha).getTime();
+        if (diff > 2 * 86400000) {
+          // opcional: borrar de Firestore automáticamente
+          // deleteDoc(doc(db, "carreras", r.id));
+        }
+      });
+      races = races.filter(r => (Date.now() - new Date(r.fecha).getTime()) < 2 * 86400000);
+      renderList();
+      if (currentId) {
+        const r = races.find(x=>x.id===currentId);
+        if (r) renderParticipantes(r);
+      }
+    });
+  }
+
+  // ── render lista ──
+  window.renderList = function() {
+    const el = document.getElementById('race-list');
+    if (!races.length) {
+      el.innerHTML = `<div class="empty-state"><div class="big">🏁</div><p>No hay carreras todavía.<br>Pulsa <b>+ Nueva</b> para añadir la primera.</p></div>`;
+      return;
+    }
+    el.innerHTML = races.map(r => {
+      const dl = daysLabel(r.fecha);
+      const n = r.inscritos ? r.inscritos.length : 0;
+      return `<div class="race-card" onclick="showDetail('${r.id}')">
+        <div class="rc-top"><div class="rc-name">${r.titulo}</div><div class="badge-km">${r.km} km</div></div>
+        <div class="rc-meta">
+          <div class="meta-row"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6c0 3.5 4.5 8.5 4.5 8.5s4.5-5 4.5-8.5c0-2.5-2-4.5-4.5-4.5z"/><circle cx="8" cy="6" r="1.5"/></svg>${r.lugar}</div>
+          <div class="meta-row"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M5 1.5v3M11 1.5v3M2 7h12"/></svg>${fmt(r.fecha)}</div>
+        </div>
+        <div class="rc-footer">
+          <div class="count-label"><b>${n}</b> ${n===1?'persona apuntada':'personas apuntadas'}</div>
+          <div class="days-badge ${dl.cls}">${dl.text}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── detalle ──
+  window.showDetail = function(id) {
+    currentId = id;
+    const r = races.find(x=>x.id===id);
+    if (!r) return;
+    document.getElementById('d-title').textContent = r.titulo;
+    document.getElementById('d-lugar').textContent = r.lugar;
+    document.getElementById('d-fecha').textContent = fmt(r.fecha);
+    document.getElementById('d-km').textContent = r.km + ' km';
+    const la = document.getElementById('d-link');
+    if (r.link) { la.href = r.link; la.style.display = 'inline-flex'; }
+    else { la.style.display = 'none'; }
+    const past = isPastRace(r.fecha);
+    document.getElementById('inscripcion-box').style.display = past ? 'none' : 'block';
+    document.getElementById('aviso').style.display = past ? 'none' : 'flex';
+    const saved = localStorage.getItem('runner_name') || '';
+    document.getElementById('nombre-input').value = saved;
+    syncBtn(r, saved);
+    renderParticipantes(r);
+    showView('view-detail');
+  }
+
+  function syncBtn(r, name) {
+    const ya = name && r.inscritos && r.inscritos.includes(name);
+    const btn = document.getElementById('btn-apuntar');
+    btn.textContent = ya ? '✓ Apuntado' : 'Apuntarme';
+    btn.className = ya ? 'btn-apuntar ya' : 'btn-apuntar';
+  }
+
+  function renderParticipantes(r) {
+    const ins = r.inscritos || [];
+    document.getElementById('p-title').textContent = `Participantes (${ins.length})`;
+    const el = document.getElementById('p-list');
+    if (!ins.length) { el.innerHTML = `<div class="p-empty">Sé el primero en apuntarte 👆</div>`; return; }
+    const myName = localStorage.getItem('runner_name') || '';
+    el.innerHTML = ins.map((name, i) => `
+      <div class="p-row">
+        <div class="avatar">${initials(name)}</div>
+        <div>
+          <div class="p-name">${name}${name===myName?' <span style="font-size:12px;color:#2A7A4B">(tú)</span>':''}</div>
+          <div class="p-num">#${i+1}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  // ── apuntarse ──
+  window.apuntarse = async function() {
+    const name = document.getElementById('nombre-input').value.trim();
+    if (!name) { showToast('Escribe tu nombre primero'); return; }
+    const r = races.find(x=>x.id===currentId);
+    if (!r) return;
+    const ins = r.inscritos || [];
+    if (ins.includes(name)) { showToast('Ya estás en la lista ✓'); return; }
+    ins.push(name);
+    await updateDoc(doc(db, "carreras", currentId), { inscritos: ins });
+    localStorage.setItem('runner_name', name);
+    showToast('¡Apuntado/a! 🎉');
+  }
+
+  // ── añadir carrera ──
+  window.addRace = async function() {
+    const titulo = document.getElementById('f-titulo').value.trim();
+    const lugar  = document.getElementById('f-lugar').value.trim();
+    const fecha  = document.getElementById('f-fecha').value;
+    const km     = document.getElementById('f-km').value;
+    const link   = document.getElementById('f-link').value.trim();
+    if (!titulo || !lugar || !fecha || !km) { showToast('Rellena los campos obligatorios (*)'); return; }
+    await addDoc(carrerasRef, { titulo, lugar, fecha, km: parseFloat(km), link, inscritos: [], creado: Date.now() });
+    ['f-titulo','f-lugar','f-fecha','f-km','f-link'].forEach(id => document.getElementById(id).value = '');
+    showToast('¡Carrera publicada!');
+    showList();
+  }
+
+  // ── navegación ──
+  window.showList = function() { currentId = null; showView('view-list'); }
+  window.showForm = function() { showView('view-form'); }
+
+  // ── input nombre sync ──
+  document.getElementById('nombre-input').addEventListener('input', function() {
+    const r = races.find(x=>x.id===currentId);
+    if (r) syncBtn(r, this.value.trim());
+  });
+
+  // ── arrancar ──
+  startListener();
+</script>
+</body>
+</html>
