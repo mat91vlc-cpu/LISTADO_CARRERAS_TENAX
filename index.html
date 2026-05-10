@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   :root {
     --bg:        #080809;
     --bg2:       #0f0f11;
@@ -39,7 +39,7 @@
     --font-display: 'Bebas Neue', sans-serif;
     --font-mono: 'Space Mono', monospace;
   }
-
+ 
   html { scroll-behavior: smooth; }
   body {
     font-family: var(--font);
@@ -49,7 +49,7 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
-
+ 
   /* ── NOISE TEXTURE OVERLAY ────────────────────────────────── */
   body::before {
     content: '';
@@ -60,12 +60,12 @@
     pointer-events: none;
     z-index: 9999;
   }
-
+ 
   .app { max-width: 480px; margin: 0 auto; padding-bottom: 80px; position: relative; }
   .view { display: none; }
   .view.active { display: block; }
   .view:not(#view-list).active .header { display: none; }
-
+ 
   /* ── HEADER ───────────────────────────────────────────────── */
   .header {
     padding: 18px 20px 0;
@@ -74,7 +74,7 @@
     justify-content: space-between;
     gap: 10px;
   }
-
+ 
   .logo {
     font-family: var(--font-display);
     font-size: 32px;
@@ -95,9 +95,9 @@
   }
   .logo-icon svg { color: #0D0D0F; }
   .logo span { color: var(--accent); }
-
+ 
   .header-actions { display: flex; gap: 6px; align-items: center; }
-
+ 
   .btn-icon {
     display: flex; align-items: center; justify-content: center;
     width: 36px; height: 36px;
@@ -111,7 +111,7 @@
   }
   .btn-icon:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
   .btn-icon.muted { border-color: var(--red); color: var(--red); background: var(--red-bg); }
-
+ 
   .btn-admin-on {
     display: flex; align-items: center; gap: 5px;
     padding: 8px 13px;
@@ -126,7 +126,7 @@
     letter-spacing: 0.3px;
   }
   .btn-admin-on:hover { border-color: var(--accent); color: var(--accent); }
-
+ 
   .btn-new {
     display: flex; align-items: center; gap: 5px;
     padding: 8px 14px;
@@ -142,7 +142,7 @@
   }
   .btn-new:hover { box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-1px); }
   .btn-new:active { transform: scale(.96); }
-
+ 
   /* ── ADMIN BAR ────────────────────────────────────────────── */
   .admin-bar {
     display: none;
@@ -165,7 +165,7 @@
     cursor: pointer; font-family: var(--font);
     font-weight: 600;
   }
-
+ 
   /* ── SEARCH BAR ───────────────────────────────────────────── */
   .search-wrap {
     padding: 14px 20px 0;
@@ -193,7 +193,7 @@
     pointer-events: none;
     margin-top: 7px;
   }
-
+ 
   /* ── FILTER TABS ──────────────────────────────────────────── */
   .filter-tabs {
     display: flex; gap: 6px;
@@ -202,7 +202,7 @@
     align-items: center;
   }
   .filter-tabs::-webkit-scrollbar { display: none; }
-
+ 
   .tab {
     padding: 7px 16px;
     border-radius: 50px;
@@ -225,7 +225,7 @@
     transform: scale(1.04);
   }
   .tab:active { transform: scale(.93); }
-
+ 
   .strava-btn {
     display: flex; align-items: center; gap: 5px;
     padding: 7px 13px;
@@ -242,7 +242,7 @@
     margin-left: auto;
   }
   .strava-btn:hover { background: rgba(252,76,2,0.15); border-color: rgba(252,76,2,0.5); }
-
+ 
   /* ── SECTION LABEL ────────────────────────────────────────── */
   .section-label {
     font-family: var(--font-mono);
@@ -254,10 +254,10 @@
     display: flex; align-items: center; gap: 10px;
   }
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
+ 
   /* ── RACE LIST ────────────────────────────────────────────── */
   .race-list { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
-
+ 
   /* ── RACE CARD ────────────────────────────────────────────── */
   .race-card {
     background: var(--surface);
@@ -280,7 +280,7 @@
   .race-card:hover::after { opacity: 1; }
   .race-card:active { transform: scale(.985); }
   .race-card.past:hover { border-color: var(--border2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.3); }
-
+ 
   .race-card-top-bar {
     height: 2px;
     background: linear-gradient(90deg, var(--accent) 0%, rgba(212,245,60,.4) 100%);
@@ -288,11 +288,11 @@
   }
   .race-card:hover .race-card-top-bar { height: 3px; }
   .race-card.past .race-card-top-bar { background: var(--surface3); }
-
+ 
   .race-card-body { padding: 14px 16px 15px; }
-
+ 
   .rc-header { display: flex; gap: 12px; margin-bottom: 11px; }
-
+ 
   .rc-date-block {
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
@@ -316,7 +316,7 @@
     margin-top: 3px;
   }
   .race-card.past .rc-date-day { color: var(--muted); }
-
+ 
   .rc-main { flex: 1; min-width: 0; }
   .rc-name {
     font-family: var(--font);
@@ -326,13 +326,13 @@
     letter-spacing: -0.2px;
   }
   .race-card.past .rc-name { color: var(--muted); }
-
+ 
   .rc-location {
     display: flex; align-items: center; gap: 4px;
     font-size: 12px; color: var(--muted);
     margin-bottom: 8px;
   }
-
+ 
   .km-badges { display: flex; gap: 5px; flex-wrap: wrap; }
   .badge-km {
     font-family: var(--font-mono);
@@ -348,17 +348,17 @@
   }
   .badge-km:hover { transform: scale(1.08) translateY(-1px); background: rgba(212,245,60,.13); }
   .race-card.past .badge-km { background: var(--surface2); color: var(--muted); border-color: var(--border); }
-
+ 
   .rc-footer {
     display: flex; align-items: center;
     justify-content: space-between;
     margin-top: 11px; padding-top: 11px;
     border-top: 1px solid var(--border);
   }
-
+ 
   .count-label { font-size: 12px; color: var(--muted); }
   .count-label b { color: var(--text); font-weight: 700; }
-
+ 
   .days-badge {
     font-family: var(--font-mono);
     font-size: 11px; font-weight: 700;
@@ -371,7 +371,7 @@
   .days-badge.today  { background: var(--orange-bg); color: var(--orange); border: 1px solid rgba(255,170,68,.18); animation: pulseText 1.6s ease-in-out infinite; }
   .days-badge.past   { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
   .days-badge.soon   { background: var(--green-bg); color: var(--green); border: 1px solid rgba(61,255,163,.18); }
-
+ 
   .past-fire-badge {
     font-family: var(--font-mono);
     font-size: 11px; font-weight: 700;
@@ -382,7 +382,7 @@
     color: var(--red);
     border: 1px solid rgba(255,87,87,.18);
   }
-
+ 
   /* ── BACK BAR ─────────────────────────────────────────────── */
   .back-bar {
     display: flex; align-items: center;
@@ -402,7 +402,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   .back-btn:hover { color: var(--accent); transform: translateX(-2px); }
-
+ 
   .btn-edit {
     display: flex; align-items: center; gap: 5px;
     padding: 7px 13px;
@@ -414,7 +414,7 @@
     transition: all .15s;
   }
   .btn-edit:hover { border-color: var(--accent); color: var(--accent); }
-
+ 
   /* ── DETAIL HERO ──────────────────────────────────────────── */
   .detail-hero {
     padding: 22px 20px 18px;
@@ -431,7 +431,7 @@
     background: radial-gradient(ellipse at 80% 0%, rgba(212,245,60,.04) 0%, transparent 60%);
     pointer-events: none;
   }
-
+ 
   .detail-days-big {
     font-family: var(--font-mono);
     font-size: 11px; font-weight: 700;
@@ -440,7 +440,7 @@
     opacity: 0; animation: slideDown .3s .06s cubic-bezier(.22,1,.36,1) both;
   }
   .detail-days-big.past { color: var(--muted); }
-
+ 
   .detail-title {
     font-family: var(--font);
     font-size: 26px; font-weight: 800;
@@ -448,7 +448,7 @@
     line-height: 1.2;
     opacity: 0; animation: slideDown .3s .1s cubic-bezier(.22,1,.36,1) both;
   }
-
+ 
   .chips {
     display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px;
     opacity: 0; animation: slideDown .3s .14s cubic-bezier(.22,1,.36,1) both;
@@ -460,12 +460,12 @@
     border: 1px solid var(--border);
     padding: 5px 11px; border-radius: 7px;
   }
-
+ 
   #d-km-badges {
     opacity: 0; animation: slideDown .3s .18s cubic-bezier(.22,1,.36,1) both;
     margin-bottom: 14px;
   }
-
+ 
   .link-oficial {
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 13px; color: var(--blue);
@@ -477,7 +477,7 @@
     transition: opacity .15s, transform .15s;
   }
   .link-oficial:hover { opacity: .8; transform: translateY(-1px); }
-
+ 
   /* ── AVISO ────────────────────────────────────────────────── */
   .aviso {
     margin: 14px 16px 0;
@@ -489,7 +489,7 @@
   }
   .aviso-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
   .aviso-text { font-size: 12px; color: var(--orange); line-height: 1.55; font-weight: 500; }
-
+ 
   /* ── INSCRIPCION BOX ──────────────────────────────────────── */
   .inscripcion-box {
     padding: 18px 16px;
@@ -516,7 +516,7 @@
     border-color: rgba(212,245,60,.4);
     box-shadow: 0 0 0 3px rgba(212,245,60,.08);
   }
-
+ 
   .dist-label {
     font-family: var(--font-mono);
     font-size: 10px; font-weight: 700;
@@ -540,7 +540,7 @@
     color: var(--accent);
     transform: scale(1.04);
   }
-
+ 
   .btn-apuntar {
     width: 100%; padding: 13px 16px;
     background: var(--accent); color: #080809;
@@ -558,7 +558,7 @@
     color: var(--green);
     border: 1px solid rgba(61,255,163,.2);
   }
-
+ 
   /* ── PARTICIPANTES ────────────────────────────────────────── */
   .participantes-box { padding: 18px 16px; }
   .participantes-box h3 {
@@ -577,7 +577,7 @@
     padding: 2px 8px; border-radius: 5px;
     font-weight: 700;
   }
-
+ 
   .p-list { display: flex; flex-direction: column; gap: 2px; }
   .p-row, .p-row-del {
     display: flex; align-items: center; gap: 11px;
@@ -586,7 +586,7 @@
     animation: slideUp .25s cubic-bezier(.22,1,.36,1) both;
   }
   .p-row:hover, .p-row-del:hover { background: var(--surface2); }
-
+ 
   .avatar {
     width: 34px; height: 34px;
     border-radius: 50%;
@@ -604,11 +604,11 @@
     border-color: var(--accent);
     color: var(--accent);
   }
-
+ 
   .p-info { flex: 1; min-width: 0; }
   .p-name { font-size: 13px; font-weight: 600; color: var(--text); }
   .p-sub { font-family: var(--font-mono); font-size: 10px; color: var(--muted2); margin-top: 1px; }
-
+ 
   .btn-del-p {
     margin-left: auto; flex-shrink: 0;
     background: none; border: none; cursor: pointer;
@@ -616,7 +616,7 @@
     padding: 4px 6px; opacity: .4; transition: opacity .15s;
   }
   .p-row-del:hover .btn-del-p { opacity: 1; }
-
+ 
   .dist-group { margin-bottom: 14px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
   .dist-section-title {
     font-family: var(--font-mono);
@@ -633,7 +633,7 @@
   .dist-group.color-2 .p-row, .dist-group.color-2 .p-row-del { border-left: 3px solid rgba(255,170,68,.12); }
   .dist-group.color-3 .dist-section-title { background: rgba(61,255,163,.08); color: var(--green); border-left: 3px solid var(--green); }
   .dist-group.color-3 .p-row, .dist-group.color-3 .p-row-del { border-left: 3px solid rgba(61,255,163,.12); }
-
+ 
   /* ── CALENDAR ─────────────────────────────────────────────── */
   .calendar-wrap { padding: 0 16px 20px; }
   .cal-year-nav {
@@ -656,7 +656,7 @@
   }
   .cal-year-btn:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.1); }
   .cal-year-btn:active { transform: scale(.9); }
-
+ 
   .cal-months { display: flex; flex-direction: column; gap: 12px; }
   .cal-month {
     background: var(--surface);
@@ -730,7 +730,7 @@
     transform: translateX(-50%); width: 3px; height: 3px;
     border-radius: 50%; background: rgba(0,0,0,.5);
   }
-
+ 
   /* ── FORM ─────────────────────────────────────────────────── */
   .form-wrap { padding: 22px 20px; }
   .form-wrap h2 {
@@ -758,7 +758,7 @@
     border-color: rgba(212,245,60,.4);
     box-shadow: 0 0 0 3px rgba(212,245,60,.07);
   }
-
+ 
   .km-add-row { display: flex; gap: 7px; }
   .km-add-row input {
     flex: 1; padding: 11px 13px;
@@ -777,7 +777,7 @@
   }
   .btn-add-km:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.08); }
   .btn-add-km:active { transform: scale(.92); }
-
+ 
   .km-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 9px; }
   .km-tag {
     display: flex; align-items: center; gap: 5px;
@@ -794,7 +794,7 @@
   }
   .km-tag button:hover { color: var(--red); }
   .km-hint { font-size: 11px; color: var(--muted2); margin-top: 7px; line-height: 1.5; }
-
+ 
   .btn-submit {
     width: 100%; padding: 13px;
     background: var(--accent); color: #080809;
@@ -806,14 +806,14 @@
   }
   .btn-submit:hover { box-shadow: 0 4px 20px var(--accent-glow); transform: translateY(-1px); }
   .btn-submit:active { opacity: .9; transform: scale(.98); }
-
+ 
   /* ── STRAVA VIEW ──────────────────────────────────────────── */
   .strava-container {
     padding: 0 16px;
     display: flex; flex-direction: column;
     gap: 14px; margin-top: 18px;
   }
-
+ 
   .strava-hero {
     background: linear-gradient(135deg, rgba(252,76,2,.1), rgba(212,245,60,.06));
     border: 1px solid rgba(252,76,2,.25);
@@ -837,7 +837,7 @@
   }
   .strava-hero-btn:hover { background: #e63f00; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(252,76,2,.3); }
   .strava-hero-btn:active { transform: scale(.96); }
-
+ 
   .strava-stats { display: flex; gap: 10px; }
   .strava-stat-card {
     flex: 1; background: var(--surface2);
@@ -854,7 +854,7 @@
     font-size: 9px; color: var(--muted);
     margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
   }
-
+ 
   .strava-list {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -893,7 +893,7 @@
     padding: 4px 7px; opacity: .4; transition: opacity .15s;
   }
   .strava-delete-btn:hover { opacity: 1; }
-
+ 
   /* ── STRAVA MODAL ─────────────────────────────────────────── */
   .strava-modal {
     display: none; position: fixed;
@@ -930,7 +930,7 @@
     font-size: 16px; color: var(--muted); transition: all .2s;
   }
   .modal-close:hover { color: var(--text); background: var(--surface3); }
-
+ 
   .strava-form-group { margin-bottom: 18px; }
   .strava-form-label {
     display: block;
@@ -950,7 +950,7 @@
     background: var(--bg2); box-shadow: 0 0 0 3px rgba(252,76,2,.06);
   }
   .strava-form-input::placeholder { color: var(--muted2); }
-
+ 
   .strava-submit-btn {
     width: 100%; padding: 13px 16px;
     background: var(--strava); color: #fff;
@@ -961,7 +961,7 @@
   .strava-submit-btn:hover { background: #e63f00; }
   .strava-submit-btn:active { transform: scale(.97); }
   .strava-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
+ 
   /* ── FLOATING MUSIC BUTTON ────────────────────────────────── */
   .music-fab {
     position: fixed;
@@ -979,7 +979,7 @@
   .music-fab:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.1); box-shadow: 0 6px 24px rgba(0,0,0,.5), 0 0 20px var(--accent-glow); }
   .music-fab.playing { border-color: rgba(212,245,60,.4); color: var(--accent); animation: musicPulse 2s ease-in-out infinite; }
   .music-fab.muted { border-color: rgba(255,87,87,.3); color: var(--red); animation: none; }
-
+ 
   /* ── TOAST ────────────────────────────────────────────────── */
   .toast {
     position: fixed; bottom: 80px; left: 50%;
@@ -995,12 +995,12 @@
     box-shadow: 0 4px 20px rgba(0,0,0,.4);
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
+ 
   /* ── EMPTY STATE ──────────────────────────────────────────── */
   .empty-state { text-align: center; padding: 56px 24px; color: var(--muted); }
   .empty-state .big { font-size: 44px; margin-bottom: 12px; }
   .empty-state p { font-size: 14px; line-height: 1.6; }
-
+ 
   /* ── LOADING ──────────────────────────────────────────────── */
   .loading {
     text-align: center; padding: 52px;
@@ -1010,12 +1010,12 @@
     letter-spacing: 2px; text-transform: uppercase;
     animation: shimmer 1.4s ease-in-out infinite;
   }
-
+ 
   /* ── SCROLLBAR ────────────────────────────────────────────── */
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
-
+ 
   /* ── RIPPLE ───────────────────────────────────────────────── */
   .ripple-el {
     position: absolute; border-radius: 50%;
@@ -1023,7 +1023,7 @@
     transform: scale(0);
     animation: ripple .55s linear; pointer-events: none;
   }
-
+ 
   /* ── KEYFRAMES ────────────────────────────────────────────── */
   @keyframes cardIn {
     from { opacity:0; transform:translateY(16px); }
@@ -1063,16 +1063,16 @@
     0%,100% { box-shadow: 0 4px 20px rgba(0,0,0,.4); }
     50% { box-shadow: 0 4px 20px rgba(0,0,0,.4), 0 0 18px var(--accent-glow); }
   }
-
+ 
   /* ── VIEW TRANSITIONS ─────────────────────────────────────── */
   .view.active { animation: scaleIn .26s cubic-bezier(.22,1,.36,1) forwards; }
   #view-detail.active { animation: slideInRight .28s cubic-bezier(.22,1,.36,1) forwards; }
   #view-form.active   { animation: slideInRight .28s cubic-bezier(.22,1,.36,1) forwards; }
   #view-strava.active { animation: fadeSlideUp .28s cubic-bezier(.22,1,.36,1) forwards; }
-
+ 
   /* ── UPCOMING CARD GLOW ───────────────────────────────────── */
   .race-card:not(.past) .race-card-top-bar { animation: pulseGlow 3s ease-in-out infinite; }
-
+ 
   /* ── CARD STAGGER ─────────────────────────────────────────── */
   .race-card:nth-child(1) { animation-delay:.04s }
   .race-card:nth-child(2) { animation-delay:.12s }
@@ -1082,13 +1082,13 @@
   .race-card:nth-child(6) { animation-delay:.44s }
   .race-card:nth-child(7) { animation-delay:.52s }
   .race-card:nth-child(8) { animation-delay:.60s }
-
+ 
   /* ── INPUT FOCUS GLOW ─────────────────────────────────────── */
   .form-group input:focus,
   .inscripcion-box > input:focus {
     box-shadow: 0 0 0 3px rgba(212,245,60,.08);
   }
-
+ 
   /* ── SHARE BTN ────────────────────────────────────────────── */
   .btn-share {
     display: flex; align-items: center; gap: 5px;
@@ -1103,16 +1103,13 @@
 </head>
 <body>
 <audio id="bg-music" src="cancion.mp3" loop preload="auto"></audio>
-
+ 
 <div class="app">
-
+ 
   <!-- ── LISTA ──────────────────────────────────────────────── -->
   <div id="view-list" class="view active">
     <div class="header">
       <div class="logo">
-        <div class="logo-icon">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
         TEN<span>AX</span>
       </div>
       <div class="header-actions">
@@ -1130,18 +1127,18 @@
         </button>
       </div>
     </div>
-
+ 
     <div class="admin-bar" id="admin-bar">
       <span>🔓 Modo admin activo</span>
       <button class="btn-admin-off" onclick="salirAdmin()">Salir</button>
     </div>
-
+ 
     <!-- BUSCADOR -->
     <div class="search-wrap">
       <svg class="search-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
       <input type="text" class="search-input" id="search-input" placeholder="Buscar carrera…" oninput="onSearch()" autocomplete="off">
     </div>
-
+ 
     <div class="filter-tabs">
       <button class="tab active" onclick="setFilter('all', this)">Todas</button>
       <button class="tab" onclick="setFilter('past', this)">Pasadas</button>
@@ -1151,12 +1148,12 @@
         Strava
       </button>
     </div>
-
+ 
     <div id="list-content">
       <div class="section-label" id="section-label">Carreras</div>
       <div id="race-list" class="race-list"><div class="loading">Conectando…</div></div>
     </div>
-
+ 
     <div id="calendar-content" style="display:none">
       <div class="calendar-wrap">
         <div class="cal-year-nav">
@@ -1172,7 +1169,7 @@
       </div>
     </div>
   </div>
-
+ 
   <!-- ── DETALLE ────────────────────────────────────────────── -->
   <div id="view-detail" class="view">
     <div class="back-bar">
@@ -1229,7 +1226,7 @@
       <div id="p-list" class="p-list"></div>
     </div>
   </div>
-
+ 
   <!-- ── STRAVA VIEW ─────────────────────────────────────────── -->
   <div id="view-strava" class="view">
     <div class="back-bar">
@@ -1247,7 +1244,7 @@
           Ver equipo en Strava
         </a>
       </div>
-
+ 
       <div class="strava-stats" id="strava-stats" style="display:none">
         <div class="strava-stat-card">
           <div class="strava-stat-number" id="stat-count">0</div>
@@ -1258,17 +1255,17 @@
           <div class="strava-stat-label">Nuevos hoy</div>
         </div>
       </div>
-
+ 
       <div class="strava-list" id="strava-followers-list">
         <div class="strava-list-empty">📋 Aún no hay deportistas. ¡Sé el primero en compartir!</div>
       </div>
-
+ 
       <div style="margin-top:4px; padding:0 4px;">
         <button class="strava-submit-btn" onclick="openStravaFormModal()" style="background: var(--accent); color: #080809; font-family: var(--font); font-weight: 700;">+ Comparte tu Strava</button>
       </div>
     </div>
   </div>
-
+ 
   <!-- ── FORMULARIO ──────────────────────────────────────────── -->
   <div id="view-form" class="view">
     <div class="back-bar">
@@ -1296,9 +1293,9 @@
       <button id="btn-eliminar-carrera" onclick="eliminarCarrera()" style="display:none;width:100%;margin-top:10px;padding:12px;background:transparent;color:var(--red);border:1.5px solid rgba(255,87,87,0.25);border-radius:var(--radius);font-family:var(--font);font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;">🗑️ Eliminar esta carrera</button>
     </div>
   </div>
-
+ 
 </div><!-- /app -->
-
+ 
 <!-- ── STRAVA MODAL ────────────────────────────────────────── -->
 <div class="strava-modal" id="strava-modal">
   <div class="strava-modal-content">
@@ -1321,13 +1318,13 @@
     <button class="strava-submit-btn" onclick="closeStravaModal()" style="background:transparent;color:var(--text);border:1px solid var(--border2);margin-top:7px;">Cancelar</button>
   </div>
 </div>
-
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
   import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
-
+ 
   const firebaseConfig = {
     apiKey:            "AIzaSyAP0ABevW1b7R6vWS_pDE_1doE9a8T7BwI",
     authDomain:        "listado-carreras.firebaseapp.com",
@@ -1337,24 +1334,24 @@
     appId:             "1:667969938494:web:2aa05ae291c9fbe54e5d6f",
     measurementId:     "G-Q3LECZTZ4R"
   };
-
+ 
   const app = initializeApp(firebaseConfig);
   const db  = getFirestore(app);
   const ref = collection(db, "carreras");
-
+ 
   let currentId = null, editingId = null, formKms = [], selectedDist = null, races = [];
   let currentFilter = 'all', calYear = new Date().getFullYear();
   let searchQuery = '';
-
+ 
   const MONTHS_ES    = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   const MONTHS_SHORT = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
   const DOW = ['L','M','X','J','V','S','D'];
-
+ 
   function fmt(str) { const [y,m,d]=str.split('-'); return `${parseInt(d)} ${MONTHS_SHORT[parseInt(m)-1].toLowerCase()} ${y}`; }
   function fmtDay(str) { return parseInt(str.split('-')[2]); }
   function fmtMon(str) { return MONTHS_SHORT[parseInt(str.split('-')[1])-1]; }
   function fmtYear(str) { return str.split('-')[0]; }
-
+ 
   function daysLabel(str) {
     const [y,m,d] = str.split('-').map(Number);
     const raceDate = new Date(y, m-1, d);
@@ -1366,11 +1363,11 @@
     if (diff <= 7)  return { text:`${diff} DÍAS`, cls:'soon', diffNum: diff };
     return { text:`${diff} DÍAS`, cls:'future', diffNum: diff };
   }
-
+ 
   function initials(n) { return n.trim().split(' ').slice(0,2).map(w=>w[0]||'').join('').toUpperCase()||'?'; }
   function isPast(f) { const [y,m,d]=f.split('-').map(Number); const race=new Date(y,m-1,d); const today=new Date(); today.setHours(0,0,0,0); return race < today; }
   function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2600); }
-
+ 
   function showView(id) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     const el = document.getElementById(id);
@@ -1378,12 +1375,12 @@
     el.classList.add('active');
     actualizarUIAdmin();
   }
-
+ 
   function getDists(r) { if(r.kms&&r.kms.length) return r.kms; if(r.km) return [r.km]; return []; }
   function getName(e) { return typeof e==='string'?e:e.nombre; }
   function getDist(e) { return typeof e==='object'?e.distancia:null; }
   function esAdmin() { return sessionStorage.getItem('tenax_admin')==='1'; }
-
+ 
   // ── Firebase ────────────────────────────────────────────────
   function startListener() {
     onSnapshot(query(ref, orderBy("fecha")), snap => {
@@ -1397,13 +1394,13 @@
       }
     });
   }
-
+ 
   // ── SEARCH ──────────────────────────────────────────────────
   window.onSearch = function() {
     searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
     renderList();
   }
-
+ 
   // ── FILTER ──────────────────────────────────────────────────
   window.setFilter = function(filter, btn) {
     currentFilter = filter;
@@ -1417,7 +1414,7 @@
       lc.style.display = 'block'; cc.style.display = 'none'; renderList();
     }
   }
-
+ 
   // ── LISTA ────────────────────────────────────────────────────
   window.renderList = function() {
     const el = document.getElementById('race-list');
@@ -1463,31 +1460,31 @@
       </div>`;
     }).join('');
   }
-
+ 
   window.calPrevYear = function() { calYear--; renderCalendar(); }
   window.calNextYear = function() { calYear++; renderCalendar(); }
-
+ 
   window.renderCalendar = function() {
     document.getElementById('cal-year-label').textContent = calYear;
     const raceMap = {};
     races.forEach(r => { if (!raceMap[r.fecha]) raceMap[r.fecha]=[]; raceMap[r.fecha].push(r); });
     const today = new Date(); today.setHours(0,0,0,0);
     const monthsHTML = [];
-
+ 
     for (let m = 0; m < 12; m++) {
       const monthRaceKeys = Object.keys(raceMap).filter(k => {
         const [y,mo] = k.split('-'); return parseInt(y)===calYear && parseInt(mo)===m+1;
       });
       const monthEnd = new Date(calYear, m+1, 0); monthEnd.setHours(23,59,59);
       if (monthRaceKeys.length===0 && monthEnd < today) continue;
-
+ 
       const daysInMonth = new Date(calYear, m+1, 0).getDate();
       let startDow = new Date(calYear, m, 1).getDay();
       startDow = startDow===0 ? 6 : startDow-1;
-
+ 
       let cells = DOW.map(d=>`<div class="cal-dow">${d}</div>`).join('');
       for (let i=0; i<startDow; i++) cells += `<div class="cal-day empty"></div>`;
-
+ 
       for (let day=1; day<=daysInMonth; day++) {
         const dateStr = `${calYear}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
         const dayRaces = raceMap[dateStr] || [];
@@ -1503,7 +1500,7 @@
           cells += `<div class="cal-day${isToday?' today-day':''}">${day}</div>`;
         }
       }
-
+ 
       monthsHTML.push(`<div class="cal-month">
         <div class="cal-month-header">
           <div class="cal-month-name">${MONTHS_ES[m]}</div>
@@ -1512,12 +1509,12 @@
         <div class="cal-grid">${cells}</div>
       </div>`);
     }
-
+ 
     document.getElementById('cal-months').innerHTML = monthsHTML.length
       ? monthsHTML.join('')
       : `<div class="empty-state"><div class="big">📅</div><p>No hay carreras en ${calYear}.</p></div>`;
   }
-
+ 
   // ── DETALLE ──────────────────────────────────────────────────
   window.showDetail = function(id) {
     currentId = id; selectedDist = null;
@@ -1549,19 +1546,19 @@
     renderParticipantes(r);
     showView('view-detail');
   }
-
+ 
   window.selectDist = function(km) {
     selectedDist = km;
     document.querySelectorAll('.dist-btn').forEach(b=>b.classList.toggle('selected', parseFloat(b.dataset.km)===km));
   }
-
+ 
   function syncBtn(r, name) {
     const ya = name && r.inscritos && r.inscritos.some(e=>getName(e)===name);
     const btn = document.getElementById('btn-apuntar');
     btn.textContent = ya?'✓ Ya estás apuntado/a':'Apuntarme';
     btn.classList.toggle('ya', ya);
   }
-
+ 
   function renderParticipantes(r) {
     const el = document.getElementById('p-list');
     const title = document.getElementById('p-title');
@@ -1570,11 +1567,11 @@
     const adminFlag = esAdmin();
     const dists = getDists(r);
     const n = ins.length;
-
+ 
     title.innerHTML = `Participantes <span>${n}</span>`;
-
+ 
     if (!n) { el.innerHTML = `<div style="text-align:center;padding:24px 0;color:var(--muted2);font-size:13px;">Sé el primero en apuntarte 👟</div>`; return; }
-
+ 
     if (dists.length <= 1) {
       el.innerHTML = ins.map((entry, origIndex) => {
         const nombre=getName(entry), esYo=nombre===myName;
@@ -1591,7 +1588,7 @@
       }).join('');
       return;
     }
-
+ 
     const groups = {};
     const distOrder = [...dists];
     distOrder.forEach(d => { groups[d] = []; });
@@ -1601,7 +1598,7 @@
       if (dist && groups[dist] !== undefined) { groups[dist].push({ entry, origIndex }); }
       else { sinDistancia.push({ entry, origIndex }); }
     });
-
+ 
     let html = '';
     distOrder.forEach((km, colorIdx) => {
       const list = groups[km];
@@ -1642,7 +1639,7 @@
     }
     el.innerHTML = html;
   }
-
+ 
   // ── APUNTARSE ─────────────────────────────────────────────────
   window.apuntarse = async function() {
     const name = document.getElementById('nombre-input').value.trim();
@@ -1658,18 +1655,23 @@
     localStorage.setItem('runner_name',name);
     showToast('¡Apuntado/a! 🎉');
   }
-
+ 
   // ── SHARE ─────────────────────────────────────────────────────
   window.shareRace = function() {
     const r = races.find(x=>x.id===currentId); if (!r) return;
-    const text = `🏃 ${r.titulo}\n📍 ${r.lugar}\n📅 ${fmt(r.fecha)}\n\n¡Nos vemos en la línea de salida! 💪`;
+    const dists = getDists(r);
+    const n = r.inscritos ? r.inscritos.length : 0;
+    const distText = dists.length ? `📏 ${dists.map(k=>k+' km').join(' · ')}\n` : '';
+    const linkText = r.link ? `🔗 Inscripción: ${r.link}\n` : '';
+    const peopleText = n > 0 ? `👥 De momento somos ${n} apuntado${n===1?'':'s'} del grupo\n` : '';
+    const text = `🏃 ${r.titulo}\n📍 ${r.lugar}\n📅 ${fmt(r.fecha)}\n${distText}${peopleText}${linkText}\n¡Nos vemos en la línea de salida! 💪`;
     if (navigator.share) {
       navigator.share({ title: r.titulo, text }).catch(()=>{});
     } else {
       navigator.clipboard.writeText(text).then(()=>showToast('Copiado al portapapeles ✓')).catch(()=>showToast('No se pudo copiar'));
     }
   }
-
+ 
   // ── FORMULARIO ────────────────────────────────────────────────
   window.showForm = function(id) {
     editingId=id; formKms=[];
@@ -1688,10 +1690,10 @@
     }
     renderKmTags(); showView('view-form');
   }
-
+ 
   window.editCurrentRace = function() { showForm(currentId); }
   window.cancelForm = function() { editingId?showDetail(editingId):showList(); }
-
+ 
   window.addKmTag = function() {
     const val = parseFloat(document.getElementById('f-km-input').value);
     if (!val||val<=0) { showToast('Escribe un número de km válido'); return; }
@@ -1704,7 +1706,7 @@
     document.getElementById('km-tags').innerHTML = formKms.map(k=>`<div class="km-tag">${k} km <button onclick="removeKmTag(${k})" title="Quitar">×</button></div>`).join('');
   }
   document.getElementById('f-km-input').addEventListener('keydown', e=>{ if(e.key==='Enter'){e.preventDefault();window.addKmTag();} });
-
+ 
   window.saveRace = async function() {
     const titulo=document.getElementById('f-titulo').value.trim();
     const lugar=document.getElementById('f-lugar').value.trim();
@@ -1722,12 +1724,12 @@
       showToast('¡Carrera publicada!'); showList();
     }
   }
-
+ 
   window.showList = function() { currentId=null; editingId=null; actualizarUIAdmin(); showView('view-list'); }
   document.getElementById('nombre-input').addEventListener('input', function() {
     const r=races.find(x=>x.id===currentId); if(r) syncBtn(r,this.value.trim());
   });
-
+ 
   // ── ADMIN ─────────────────────────────────────────────────────
   const ADMIN_PIN = '8888';
   function actualizarUIAdmin() {
@@ -1774,35 +1776,35 @@
     await updateDoc(doc(db,'carreras',currentId),{inscritos:ins});
     showToast(nombre+' eliminado ✓');
   }
-
+ 
   // ── STRAVA FOLLOWERS ──────────────────────────────────────────
   let stravaFollowers = [];
   const stravaRef = collection(db, "strava_followers");
-
+ 
   onSnapshot(query(stravaRef, orderBy("timestamp", "desc")), (snapshot) => {
     stravaFollowers = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
     renderStravaFollowers();
   });
-
+ 
   function loadStravaFollowers() {}
   function saveStravaFollowers() {}
-
+ 
   window.showStravaView = function() {
     showView('view-strava');
     renderStravaFollowers();
   }
-
+ 
   function renderStravaFollowers() {
     const listEl = document.getElementById('strava-followers-list');
     const statsEl = document.getElementById('strava-stats');
     if (!listEl) return;
-
+ 
     if (stravaFollowers.length === 0) {
       listEl.innerHTML = '<div class="strava-list-empty">📋 Aún no hay deportistas. ¡Sé el primero en compartir!</div>';
       if (statsEl) statsEl.style.display = 'none';
       return;
     }
-
+ 
     if (statsEl) {
       statsEl.style.display = 'flex';
       document.getElementById('stat-count').textContent = stravaFollowers.length;
@@ -1810,7 +1812,7 @@
       const todayCount = stravaFollowers.filter(s => new Date(s.timestamp).toDateString() === today).length;
       document.getElementById('stat-latest').textContent = todayCount;
     }
-
+ 
     const isAdmin = esAdmin();
     listEl.innerHTML = stravaFollowers.map((follower, idx) => `
       <div class="strava-list-item">
@@ -1826,7 +1828,7 @@
       </div>
     `).join('');
   }
-
+ 
   window.openStravaFormModal = function() {
     const modal = document.getElementById('strava-modal');
     if (modal) {
@@ -1836,12 +1838,12 @@
       document.getElementById('strava-name-input').focus();
     }
   }
-
+ 
   window.closeStravaModal = function() {
     const modal = document.getElementById('strava-modal');
     if (modal) modal.classList.remove('show');
   }
-
+ 
   window.submitStravaForm = async function() {
     const nameInput = document.getElementById('strava-name-input');
     const linkInput = document.getElementById('strava-link-input');
@@ -1860,7 +1862,7 @@
     nameInput.value = ''; linkInput.value = '';
     showToast('¡Añadido a la lista! 🎉');
   }
-
+ 
   window.deleteStravaFollower = async function(index) {
     if (!esAdmin()) { showToast('❌ Solo los admins pueden eliminar'); return; }
     const follower = stravaFollowers[index];
@@ -1870,24 +1872,24 @@
       showToast(`${follower.nombre} eliminado ✓`);
     }
   }
-
+ 
   document.addEventListener('DOMContentLoaded', function() {
     const nameInput = document.getElementById('strava-name-input');
     const linkInput = document.getElementById('strava-link-input');
     if (nameInput) nameInput.addEventListener('keydown', e => { if (e.key==='Enter') window.openStravaFormModal(); });
     if (linkInput) linkInput.addEventListener('keydown', e => { if (e.key==='Enter') window.submitStravaForm(); });
   });
-
+ 
   document.addEventListener('click', function(e) {
     const modal = document.getElementById('strava-modal');
     if (modal && e.target === modal) modal.classList.remove('show');
   });
-
+ 
   // ── MUSIC ─────────────────────────────────────────────────────
   let musicMuted = false;
   const bgMusic = document.getElementById('bg-music');
   bgMusic.volume = 0.4;
-
+ 
   function startMusicOnInteraction() {
     bgMusic.play().then(() => {
       const btn = document.getElementById('btn-mute');
@@ -1898,7 +1900,7 @@
   }
   document.addEventListener('click', startMusicOnInteraction, { once: true });
   document.addEventListener('touchstart', startMusicOnInteraction, { once: true });
-
+ 
   window.toggleMute = function() {
     musicMuted = !musicMuted;
     bgMusic.muted = musicMuted;
@@ -1918,11 +1920,11 @@
       if (bgMusic.paused) bgMusic.play().catch(() => {});
     }
   }
-
+ 
   actualizarUIAdmin();
   startListener();
   loadStravaFollowers();
-
+ 
   // ── RIPPLE ────────────────────────────────────────────────────
   document.addEventListener('click', function(e) {
     const btn = e.target.closest('.btn-new, .btn-apuntar, .btn-submit, .strava-hero-btn, .strava-submit-btn, .tab, .btn-add-km');
@@ -1935,7 +1937,7 @@
     btn.appendChild(el);
     el.addEventListener('animationend', () => el.remove());
   });
-
+ 
   // ── MOUSE GLOW ON CARDS ───────────────────────────────────────
   document.addEventListener('mousemove', function(e) {
     const card = e.target.closest('.race-card');
@@ -1944,12 +1946,12 @@
     card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
     card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
   });
-
+ 
   // ── SWIPE NAVIGATION ──────────────────────────────────────────
   (function() {
     const TABS = ['all', 'past', 'calendar', 'strava'];
     let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
-
+ 
     function getActiveTab() {
       const active = document.querySelector('.view.active');
       if (!active) return null;
@@ -1957,7 +1959,7 @@
       if (active.id === 'view-list') return currentFilter;
       return null;
     }
-
+ 
     function navigateTo(tab) {
       if (tab === 'strava') { window.showStravaView(); }
       else {
@@ -1966,12 +1968,12 @@
         if (btn) window.setFilter(tab, btn);
       }
     }
-
+ 
     document.addEventListener('touchstart', function(e) {
       const t = e.touches[0];
       touchStartX = t.clientX; touchStartY = t.clientY; touchStartTime = Date.now();
     }, { passive: true });
-
+ 
     document.addEventListener('touchend', function(e) {
       const t = e.changedTouches[0];
       const dx = t.clientX - touchStartX;
@@ -1985,7 +1987,7 @@
       else if (dx > 0 && idx > 0) navigateTo(TABS[idx - 1]);
     }, { passive: true });
   })();
-
+ 
 </script>
 </body>
 </html>
