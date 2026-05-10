@@ -76,24 +76,10 @@
   }
  
   .logo {
-    font-family: var(--font-display);
-    font-size: 32px;
-    letter-spacing: 3px;
-    color: var(--text);
-    text-transform: uppercase;
-    line-height: 1;
     display: flex;
     align-items: center;
-    gap: 8px;
+    line-height: 1;
   }
-  .logo-icon {
-    width: 28px; height: 28px;
-    background: var(--accent);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .logo-icon svg { color: #0D0D0F; }
   .logo span { color: var(--accent); }
  
   .header-actions { display: flex; gap: 6px; align-items: center; }
@@ -111,6 +97,8 @@
   }
   .btn-icon:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
   .btn-icon.muted { border-color: var(--red); color: var(--red); background: var(--red-bg); }
+  .btn-icon.music-error { border-color: var(--muted2); color: var(--muted2); background: var(--surface); cursor: default; opacity: 0.5; }
+  .btn-icon.playing { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); animation: musicPulse 2s ease-in-out infinite; }
  
   .btn-admin-on {
     display: flex; align-items: center; gap: 5px;
@@ -1102,7 +1090,7 @@
 </style>
 </head>
 <body>
-<audio id="bg-music" src="cancion.mp3" loop preload="auto"></audio>
+<audio id="bg-music" src="cancion.mp3" loop preload="auto" onerror="onMusicError()"></audio>
  
 <div class="app">
  
@@ -1110,7 +1098,11 @@
   <div id="view-list" class="view active">
     <div class="header">
       <div class="logo">
-        TEN<span>AX</span>
+        <svg height="34" viewBox="0 0 145 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
+          <text y="30" font-family="'Bebas Neue', sans-serif" font-size="34" letter-spacing="2">
+            <tspan fill="#EEECEA">TEN</tspan><tspan fill="#D4F53C">AX</tspan>
+          </text>
+        </svg>
       </div>
       <div class="header-actions">
         <button class="btn-icon" id="btn-mute" onclick="toggleMute()" title="Música">
@@ -1887,14 +1879,32 @@
  
   // ── MUSIC ─────────────────────────────────────────────────────
   let musicMuted = false;
+  let musicError = false;
   const bgMusic = document.getElementById('bg-music');
   bgMusic.volume = 0.4;
  
+  window.onMusicError = function() {
+    musicError = true;
+    const btn = document.getElementById('btn-mute');
+    if (btn) {
+      btn.classList.remove('playing', 'muted');
+      btn.classList.add('music-error');
+      btn.title = 'Canción no encontrada — pon cancion.mp3 en la misma carpeta';
+      btn.onclick = () => showToast('⚠️ No se encuentra cancion.mp3 — ponla en la misma carpeta que el HTML');
+    }
+  }
+ 
+  bgMusic.addEventListener('error', window.onMusicError);
+ 
   function startMusicOnInteraction() {
+    if (musicError) return;
     bgMusic.play().then(() => {
       const btn = document.getElementById('btn-mute');
       if (btn) btn.classList.add('playing');
-    }).catch(() => {});
+    }).catch((e) => {
+      // Autoplay bloqueado o archivo no encontrado
+      if (bgMusic.error) window.onMusicError();
+    });
     document.removeEventListener('click', startMusicOnInteraction);
     document.removeEventListener('touchstart', startMusicOnInteraction);
   }
@@ -1902,6 +1912,10 @@
   document.addEventListener('touchstart', startMusicOnInteraction, { once: true });
  
   window.toggleMute = function() {
+    if (musicError) {
+      showToast('⚠️ No se encuentra cancion.mp3 — ponla en la misma carpeta que el HTML');
+      return;
+    }
     musicMuted = !musicMuted;
     bgMusic.muted = musicMuted;
     const btn = document.getElementById('btn-mute');
